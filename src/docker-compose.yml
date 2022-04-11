@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  shopping-mongo:
+  catalogdb:
     image: mongo:5.0
     ports:
       - 27017:27017
@@ -15,4 +15,6 @@ services:
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
+volumes:
+  mongo_data:
   
