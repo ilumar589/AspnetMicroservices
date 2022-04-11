@@ -24,12 +24,22 @@ public class CatalogController : ControllerBase
     {
         var product = await _productRepository.GetProduct(id);
 
-        // if (product is null)
-        // {
-        //     return NotFound();
-        // }
+        if (product is null)
+        {
+            _logger.LogError("Product with id: {Id}, not found", id);
+            return NotFound();
+        }
 
         return Ok(product);
+    }
+
+    [Route("[action]/{category}", Name = "GetProductByCategory")]
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Product>))]
+    public async Task<ActionResult<IEnumerable<Product>>> GetProductByCategory(string category)
+    {
+        var products = await _productRepository.GetProductByCategory(category);
+        return Ok(products);
     }
 
     [HttpGet]
@@ -45,5 +55,29 @@ public class CatalogController : ControllerBase
         }
 
         return Ok(products);
+    }
+
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Product))]
+    public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
+    {
+        await _productRepository.CreateProduct(product);
+
+        return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+    }
+
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
+    public async Task<IActionResult> UpdateProduct([FromBody] Product product)
+    {
+        var updated = await _productRepository.UpdateProduct(product);
+        return Ok(updated);
+    }
+
+    [HttpDelete("{id:length(24)}", Name = "DeleteProduct")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
+    public async Task<IActionResult> DeleteProductById(string id)
+    {
+        return Ok(await _productRepository.DeleteProduct(id));
     }
 }

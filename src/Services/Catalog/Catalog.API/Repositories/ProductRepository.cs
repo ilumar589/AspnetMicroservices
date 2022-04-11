@@ -19,7 +19,8 @@ public class ProductRepository : IProductRepository
         using var productsCursor = await _catalogContext
             .ProductsCollection
             .FindAsync(p => true);
-        return productsCursor.Current;
+        
+        return await productsCursor.ToListAsync();
     }
 
     public async Task<Product> GetProduct(string id)
@@ -37,7 +38,7 @@ public class ProductRepository : IProductRepository
         using var productsCursor = await _catalogContext
             .ProductsCollection
             .FindAsync(filter);
-        return productsCursor.Current;
+        return await productsCursor.ToListAsync();
     }
 
     public async Task<IEnumerable<Product>> GetProductByCategory(string categoryName)
@@ -48,7 +49,7 @@ public class ProductRepository : IProductRepository
         using var productsCursor = await _catalogContext
             .ProductsCollection
             .FindAsync(filter);
-        return productsCursor.Current;
+        return await productsCursor.ToListAsync();
     }
 
     public async Task CreateProduct(Product product)

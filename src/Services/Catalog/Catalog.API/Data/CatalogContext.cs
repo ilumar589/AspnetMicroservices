@@ -12,7 +12,7 @@ public class CatalogContext : ICatalogContext
         var client = new MongoClient(connectionString);
         var databaseName = configuration.GetValue<string>("DatabaseSettings:DatabaseName");
         var database = client.GetDatabase(databaseName);
-        var collectionName = configuration.GetValue<string>("DatabaseSettings:ConnectionName");
+        var collectionName = configuration.GetValue<string>("DatabaseSettings:CollectionName");
         ProductsCollection = database.GetCollection<Product>(collectionName); 
         CatalogContextSeed.SeedData(ProductsCollection);
     }
