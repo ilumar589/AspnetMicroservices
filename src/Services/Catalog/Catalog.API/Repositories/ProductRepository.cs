@@ -33,7 +33,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<IEnumerable<Product>> GetProductByName(string name)
     {
-        var filter = Builders<Product>.Filter.ElemMatch(product => product.Name, name);
+        var filter = Builders<Product>.Filter.Eq(product => product.Name, name);
 
         using var productsCursor = await _catalogContext
             .ProductsCollection
@@ -44,7 +44,7 @@ public class ProductRepository : IProductRepository
     public async Task<IEnumerable<Product>> GetProductByCategory(string categoryName)
     {
         
-        var filter = Builders<Product>.Filter.ElemMatch(product => product.Category, categoryName);
+        var filter = Builders<Product>.Filter.Eq(product => product.Category, categoryName);
 
         using var productsCursor = await _catalogContext
             .ProductsCollection
