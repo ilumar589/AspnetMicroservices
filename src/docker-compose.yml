@@ -7,9 +7,9 @@ services:
       - 27017:27017
     volumes:
       - ~/apps/mongo:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=admin
+    #environment:
+    #  - MONGO_INITDB_ROOT_USERNAME=admin
+    #  - MONGO_INITDB_ROOT_PASSWORD=admin
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
