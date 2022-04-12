@@ -23,6 +23,7 @@ public class CatalogController : ControllerBase
     public async Task<ActionResult<Product>> GetProductById(string id)
     {
         var product = await _productRepository.GetProduct(id);
+       
 
         if (product is null)
         {

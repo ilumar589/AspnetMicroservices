@@ -23,7 +23,7 @@ public class ProductRepository : IProductRepository
         return await productsCursor.ToListAsync();
     }
 
-    public async Task<Product> GetProduct(string id)
+    public async Task<Product?> GetProduct(string id)
     {
         using var productsCursor = await _catalogContext
             .ProductsCollection
