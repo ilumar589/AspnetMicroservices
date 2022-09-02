@@ -2,7 +2,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Catalog.API.Entities;
 
-public struct Product
+public class Product
 {
     [BsonId]
     [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
