@@ -1,8 +1,9 @@
+using Basket.API.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
+builder.Services.AddSingleton<IBasketRepository, BasketRepository>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     string connectionUrl = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");

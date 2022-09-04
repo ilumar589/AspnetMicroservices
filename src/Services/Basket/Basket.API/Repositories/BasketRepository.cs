@@ -13,9 +13,9 @@ namespace Basket.API.Repositories
             _redisCache = redisCache ?? throw new ArgumentNullException(nameof(redisCache));
         }
 
-        Task IBasketRepository.DeleteBasket(string userName)
+        async Task IBasketRepository.DeleteBasket(string userName)
         {
-            throw new NotImplementedException();
+            await _redisCache.RemoveAsync(userName);
         }
 
         public async Task<ShoppingCart> GetBasket(string userName)
@@ -26,7 +26,7 @@ namespace Basket.API.Repositories
             {
                 return new ShoppingCart
                 {
-                    UserName = String.Empty,
+                    UserName = userName,
                     Items = Enumerable.Empty<ShoppingCartItem>().ToList(),
                     FoundInCache = false
                 };
@@ -35,9 +35,11 @@ namespace Basket.API.Repositories
             return JsonConvert.DeserializeObject<ShoppingCart>(basketJson);
         }
 
-        Task<ShoppingCart> IBasketRepository.UpdateBasket(ShoppingCart basket)
+        public async Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
         {
-            throw new NotImplementedException();
+            await _redisCache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));
+
+            return await GetBasket(basket.UserName);
         }
     }
 }
