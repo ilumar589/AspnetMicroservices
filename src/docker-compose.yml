@@ -7,14 +7,24 @@ services:
       - 27017:27017
     volumes:
       - ~/apps/mongo:/data/db
-    #environment:
-    #  - MONGO_INITDB_ROOT_USERNAME=admin
-    #  - MONGO_INITDB_ROOT_PASSWORD=admin
+
+  basketdb:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
+
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
+
 volumes:
   mongo_data:
   

@@ -7,7 +7,7 @@ builder.Services.AddSingleton<IBasketRepository, BasketRepository>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     string connectionUrl = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");
-    options.Configuration = "localhost:6379";
+    options.Configuration = connectionUrl;
 });
 
 
