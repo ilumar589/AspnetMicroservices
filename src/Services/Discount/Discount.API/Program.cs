@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<IDbConnection>(_ =>
 {
-    string connectionUrl = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");
+    string connectionUrl = builder.Configuration.GetValue<string>("DatabaseSettings:ConnectionString");
     return new NpgsqlConnection(connectionUrl);
 });
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();

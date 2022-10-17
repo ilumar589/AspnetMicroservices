@@ -25,7 +25,15 @@ namespace Discount.API.Repositories
 
         public async Task<bool> DeleteDiscount(string productName)
         {
-            throw new NotImplementedException();
+            var affected = await _dbConnection.ExecuteAsync("DELETE FROM Cupon WHERE ProductName = @ProductName",
+                new { ProductName = productName });
+
+            if (affected == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task<Cupon> GetDiscount(string productName)
@@ -39,7 +47,16 @@ namespace Discount.API.Repositories
 
         public async Task<bool> UpdateDiscount(Cupon cupon)
         {
-            throw new NotImplementedException();
+            var affected = await _dbConnection.ExecuteAsync
+                ("UPDATE Cupon SET ProductName=@ProductName, Description = @Description, Amount = @Amount WHERE Id = @Id",
+                new { cupon.ProductName, cupon.Description, cupon.Amount, cupon.Id });
+
+            if (affected == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

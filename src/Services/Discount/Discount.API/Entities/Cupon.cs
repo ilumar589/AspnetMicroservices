@@ -1,6 +1,12 @@
-﻿namespace Discount.API.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Discount.API.Entities
 {
-    public record struct Cupon(int Id, string ProductName, string Description, int Amount)
+    public class Cupon
     {
+        public long Id { get; set; }
+        public string ProductName { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public int Amount { get; set; } = 0;
     }
 }
