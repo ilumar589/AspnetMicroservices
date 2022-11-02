@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Discount.API.Entities
+﻿namespace Discount.API.Entities
 {
     public class Cupon
     {
