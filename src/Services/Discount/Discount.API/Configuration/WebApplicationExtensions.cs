@@ -12,7 +12,7 @@ namespace Discount.API.Configuration
             using var scope = app.Services.CreateScope();
             var dbConnection = scope.ServiceProvider.GetRequiredService<IDbConnection>();
             var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
             try
             {

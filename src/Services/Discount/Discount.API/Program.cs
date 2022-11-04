@@ -20,9 +20,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Run db migrations via extension method
-app.MigrateDatabase();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -33,5 +30,8 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Run db migrations via extension method
+app.MigrateDatabase();
 
 app.Run();
